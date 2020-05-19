@@ -1,0 +1,15 @@
+{
+	"[dart]": {
+		"editor.tabSize": 4,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false,
+	},
+	"dart.closingLabels": false,
+	"java.configuration.updateBuildConfiguration": "interactive",
+	"files.exclude": {
+		"**/.classpath": true,
+		"**/.project": true,
+		"**/.settings": true,
+		"**/.factorypath": true
+	}
+}

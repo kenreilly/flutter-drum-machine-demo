@@ -1,0 +1,26 @@
+name: flutter_drum_machine_demo
+description: An example project demonstrating how to build a simple drum machine in Flutter
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  audioplayers: ^0.15.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/kick.wav
+    - assets/snare.wav
+    - assets/hat.wav
+    - assets/tom1.wav
+    - assets/tom2.wav
+    - assets/crash.wav
