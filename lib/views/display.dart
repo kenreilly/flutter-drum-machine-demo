@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_drum_machine_demo/services/audio-engine.dart';
+import 'package:flutter_drum_machine_demo/views/base-widget.dart';
 
-class Display extends StatefulWidget {
+class Display extends BaseWidget {
 
 	Display({Key key}) : super(key: key);
 
@@ -11,33 +10,15 @@ class Display extends StatefulWidget {
 	_DisplayState createState() => _DisplayState();
 }
 
-class _DisplayState extends State<Display> {
+class _DisplayState extends BaseState<Display> {
 
-	Color _color = Color.lerp(Colors.deepOrange, Colors.black, 0.88);
+	Color _color = Color.lerp(Colors.brown, Colors.black, 0.7);
 
-	String get label => "120bpm";
+	String get _label => AudioEngine.bpm.toString() + 'bpm';
 
-	StreamSubscription<Signal> _stream;
+	bool get _isRunning => AudioEngine.state != ControlState.READY;
 
-	int _step = 0;
-
-	bool get isRunning => AudioEngine.state != ControlState.READY;
-
-	void on<Signal>(Signal s) => setState(() { _step = AudioEngine.step; });
-
-	@override
-	void initState() {
-		
-		_stream = AudioEngine.listen(on);
-		super.initState();
-	}
-	
-	@override
-	void dispose() {
-
-		_stream.cancel();
-		super.dispose();
-	}
+	int get _step => AudioEngine.step;
 
 	@override
 	Widget build(BuildContext context) {
@@ -51,19 +32,19 @@ class _DisplayState extends State<Display> {
 			child: Row(
 				children: <Widget>[
 					Container(
-						padding: EdgeInsets.all(6),
+						padding: EdgeInsets.all(4),
 						width: labelWidth,
 						child: Container(
 							decoration: BoxDecoration(
 								color: Colors.black26,
 								border: Border.all(color: Colors.pink.withOpacity(0.32)),
-								borderRadius: BorderRadius.circular(4),
+								borderRadius: BorderRadius.circular(2),
 							),
 							child: SizedBox.expand(
 								child: MaterialButton(
 									padding: EdgeInsets.zero,
 									onPressed: () {},
-									child: Text(label, style: style)
+									child: Text(_label, style: style)
 								)
 							)
 						)
@@ -74,10 +55,10 @@ class _DisplayState extends State<Display> {
 							children: List<Widget>.generate(8, (i) => 
 								Expanded(
 									child: Container(
-										margin: EdgeInsets.all(6),
+										margin: EdgeInsets.all(4),
 										decoration: BoxDecoration(
-											color: (_step == i && isRunning) ? Colors.indigo.withOpacity(0.6) : Colors.transparent,
-											border: Border.all(color: Colors.amber.withOpacity(0.26)),
+											color: (_step == i && _isRunning) ? Colors.grey.withOpacity(0.2) : Colors.black26,
+											border: Border.all(color: Colors.yellow.withOpacity(0.12)),
 											borderRadius: BorderRadius.circular(2)
 										)
 									)

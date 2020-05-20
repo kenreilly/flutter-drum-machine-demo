@@ -45,10 +45,11 @@ abstract class AudioEngine {
 
 	// Track note on/off data
 	static Map<DRUM_SAMPLE, List<bool>> _trackdata = _blanktape;
-	static get trackdata => _trackdata;
+	static Map<DRUM_SAMPLE, List<bool>> get trackdata => _trackdata;
 
 	// Timer tick duration: (bpm / sec_per_min * ms_per_sec / pattern_resolution)
 	static Duration get _tick => Duration(milliseconds: (bpm / 60 * 1000 / _resolution).round()); 
+	static Stopwatch _watch = Stopwatch();
 	static Timer _timer;
 
 	// Outbound signal driver - allows widgets to listen for signals from audio engine
@@ -62,8 +63,8 @@ abstract class AudioEngine {
 		switch (T) {
 
 			case PadEvent:
+				if (state == ControlState.RECORD) { return processInput(event); }
 				Sampler.play((event as PadEvent).sample);
-				if (state == ControlState.RECORD) { processInput(event); }
 				return;
 
 			case TickEvent:
@@ -101,29 +102,44 @@ abstract class AudioEngine {
 	static void edit(EditEvent event) {
 
 		trackdata[event.sample][event.position] = !trackdata[event.sample][event.position];
+		if (trackdata[event.sample][event.position]) { Sampler.play(event.sample); }
 		_signal.add(Signal());
 	}
 
+	// Quantize input using the stopwatch
 	static void processInput(PadEvent event) {
 
-		
+		int position = (_watch.elapsedMilliseconds < 900) ? step : (step != 7) ? step + 1 : 0;
+		edit(EditEvent(event.sample, position));
 	}
 
+	// Reset the engine
 	static void reset() { 
 
 		step = 0;
+		_watch.reset();
 		if (_timer != null) { _timer.cancel(); }
 	}
-		
+	
+	// Start the sequencer
 	static void start() {
 
 		reset();
+		_watch.start();
 		_timer = Timer.periodic(_tick, (t) => on<TickEvent>(TickEvent()));
 	}
 
+	// Process the next step
 	static void next() {
 		
 		step = (step == 7) ? 0 : step + 1;
+		_watch.reset();
+		
+		trackdata.forEach((DRUM_SAMPLE sample, List<bool> track) {
+			if (track[step]) { Sampler.play(sample); }
+		});
+
+		_watch.start();
 		_signal.add(Signal());
 	}
 }

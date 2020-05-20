@@ -3,8 +3,6 @@ import 'package:flutter_drum_machine_demo/views/pad.dart';
 
 class PadBank extends StatelessWidget {
 
-	PadBank();
-
 	@override
 	Widget build(BuildContext context) {
 

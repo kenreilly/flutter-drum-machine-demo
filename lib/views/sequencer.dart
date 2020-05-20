@@ -1,21 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_drum_machine_demo/services/audio-engine.dart';
 import 'package:flutter_drum_machine_demo/services/sampler.dart';
 import 'package:flutter_drum_machine_demo/views/track.dart';
 
-class Sequencer extends StatefulWidget {
+class Sequencer extends StatelessWidget {
 
 	Sequencer({Key key}) : super(key: key);
 
-	@override
-	_SequencerState createState() => _SequencerState();
-}
-
-class _SequencerState extends State<Sequencer> {
-
-	BorderSide _border = BorderSide(color: Colors.amber.withOpacity(0.4));
+	final BorderSide _border = BorderSide(color: Colors.amber.withOpacity(0.4));
 
 	@override
 	Widget build(BuildContext context) {
@@ -38,6 +30,7 @@ class _SequencerState extends State<Sequencer> {
 									children: <Widget>[
 										InkWell(
 											onTap: () => AudioEngine.on<PadEvent>(PadEvent(DRUM_SAMPLE.values[i])),
+											enableFeedback: false,
 											child: Container(
 												width: labelWidth,
 												color: Sampler.colors[i].withOpacity(0.2),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_drum_machine_demo/services/audio-engine.dart';
 import 'package:flutter_drum_machine_demo/services/sampler.dart';
@@ -15,8 +14,6 @@ class Pad extends StatelessWidget {
 	String get _name => Sampler.samples[_sample];
 	Color get _color => Sampler.colors[_sample.index];
 
-	void _onTap() => AudioEngine.on<PadEvent>(PadEvent(_sample));
-
 	@override
 	Widget build(BuildContext context) {
 		
@@ -32,9 +29,9 @@ class Pad extends StatelessWidget {
 				),
 				child: SizedBox.expand( 
 					child: InkWell(
-						child: Center(child: Text(_name)),
+						onTap: () =>  AudioEngine.on<PadEvent>(PadEvent(_sample)),
 						enableFeedback: false,
-						onTap: _onTap,
+						child: Center(child: Text(_name)),
 					)
 				)
 			)
