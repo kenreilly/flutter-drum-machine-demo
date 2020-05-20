@@ -1,16 +1,14 @@
 # flutter_drum_machine_demo
+An example project demonstrating how to build a beat machine in Flutter
 
-A new Flutter project.
+![](preview.gif)
 
 ## Getting Started
+To run this project:
+* clone this repo
+* `cd` into project directory and run `flutter pub get`
+* ensure you have a connected device or running emulator start with `flutter run`
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Thanks for checking it out!
+___
+![](preview-mobile.gif)
