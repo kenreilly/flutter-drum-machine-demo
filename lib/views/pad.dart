@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_drum_machine_demo/sample-player.dart';
+import 'package:flutter_drum_machine_demo/services/sampler.dart';
 
 class Pad extends StatelessWidget {
 
@@ -10,22 +10,13 @@ class Pad extends StatelessWidget {
 	final double width;
 	final int value;
 
-	static List<Color> _colors = [
-		Colors.red,
-		Colors.amber,
-		Colors.purple,
-		Colors.blue,
-		Colors.cyan,
-		Colors.pink,
-	];
-
 	DRUM_SAMPLE get sample => DRUM_SAMPLE.values[value];
 
-	String get name => SamplePlayer.samples[sample];
+	String get name => Sampler.samples[sample];
 
-	Color get color => _colors[sample.index];
+	Color get color => Sampler.colors[sample.index];
 
-	void on() => SamplePlayer.play(sample);
+	void on() => Sampler.play(sample);
 
 	@override
 	Widget build(BuildContext context) {
@@ -41,10 +32,10 @@ class Pad extends StatelessWidget {
 					color: color.withOpacity(0.12)
 				),
 				child: SizedBox.expand( 
-					child: MaterialButton(
-						splashColor: Color.lerp(color, Colors.black, .8),
-						child: Text(name),
-						onPressed: on 
+					child: InkWell(
+						child: Center(child: Text(name)),
+						enableFeedback: false,
+						onTap: on,
 					)
 				)
 			)

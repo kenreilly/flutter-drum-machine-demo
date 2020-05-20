@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_drum_machine_demo/pad.dart';
+import 'package:flutter_drum_machine_demo/views/pad.dart';
 
 class PadBank extends StatelessWidget {
 

@@ -1,11 +1,11 @@
-
-
+import 'dart:async';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 
 enum DRUM_SAMPLE { KICK, SNARE, HAT, TOM1, TOM2, CRASH }
 
-abstract class SamplePlayer {
+abstract class Sampler {
 
 	static String _ext = '.wav';
 
@@ -17,6 +17,15 @@ abstract class SamplePlayer {
 		DRUM_SAMPLE.TOM2: 'tom2',
 		DRUM_SAMPLE.CRASH: 'crash'
 	};
+
+	static List<Color> colors = [
+		Colors.red,
+		Colors.amber,
+		Colors.purple,
+		Colors.blue,
+		Colors.cyan,
+		Colors.pink,
+	];
 
 	static List<String> _files = List.generate(samples.length, (i) => samples[DRUM_SAMPLE.values[i]] + _ext);
 
