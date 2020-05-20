@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_drum_machine_demo/services/audio-engine.dart';
 import 'package:flutter_drum_machine_demo/services/sampler.dart';
 import 'package:flutter_drum_machine_demo/views/track.dart';
 
@@ -21,7 +24,6 @@ class _SequencerState extends State<Sequencer> {
 
 		return Expanded(
 			child: Container(
-				
 				decoration: BoxDecoration(
 					border: Border(top: _border),
 					color: Colors.black45,
@@ -35,7 +37,7 @@ class _SequencerState extends State<Sequencer> {
 									crossAxisAlignment: CrossAxisAlignment.stretch,
 									children: <Widget>[
 										InkWell(
-											onTap: () { Sampler.play(DRUM_SAMPLE.values[i]); },
+											onTap: () => AudioEngine.on<PadEvent>(PadEvent(DRUM_SAMPLE.values[i])),
 											child: Container(
 												width: labelWidth,
 												color: Sampler.colors[i].withOpacity(0.2),

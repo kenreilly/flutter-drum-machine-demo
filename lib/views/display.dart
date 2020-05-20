@@ -21,7 +21,7 @@ class _DisplayState extends State<Display> {
 
 	int _step = 0;
 
-	bool get isRunning => AudioEngine.state == ControlState.PLAY;
+	bool get isRunning => AudioEngine.state != ControlState.READY;
 
 	void on<Signal>(Signal s) => setState(() { _step = AudioEngine.step; });
 
@@ -76,8 +76,8 @@ class _DisplayState extends State<Display> {
 									child: Container(
 										margin: EdgeInsets.all(6),
 										decoration: BoxDecoration(
-											color: (_step == i && isRunning) ? Colors.blue.withOpacity(0.2) : Colors.transparent,
-											border: Border.all(color: Colors.amber.withOpacity(0.32)),
+											color: (_step == i && isRunning) ? Colors.indigo.withOpacity(0.6) : Colors.transparent,
+											border: Border.all(color: Colors.amber.withOpacity(0.26)),
 											borderRadius: BorderRadius.circular(2)
 										)
 									)
