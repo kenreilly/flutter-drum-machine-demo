@@ -29,8 +29,8 @@ class Pad extends StatelessWidget {
 				),
 				child: SizedBox.expand( 
 					child: InkWell(
-						onTap: () =>  AudioEngine.on<PadEvent>(PadEvent(_sample)),
 						enableFeedback: false,
+						onTap: () =>  AudioEngine.on<PadEvent>(PadEvent(_sample)),
 						child: Center(child: Text(_name)),
 					)
 				)

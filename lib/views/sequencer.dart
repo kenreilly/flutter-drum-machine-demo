@@ -29,8 +29,8 @@ class Sequencer extends StatelessWidget {
 									crossAxisAlignment: CrossAxisAlignment.stretch,
 									children: <Widget>[
 										InkWell(
-											onTap: () => AudioEngine.on<PadEvent>(PadEvent(DRUM_SAMPLE.values[i])),
 											enableFeedback: false,
+											onTap: () => AudioEngine.on<PadEvent>(PadEvent(DRUM_SAMPLE.values[i])),
 											child: Container(
 												width: labelWidth,
 												color: Sampler.colors[i].withOpacity(0.2),

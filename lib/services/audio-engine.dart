@@ -35,9 +35,14 @@ abstract class AudioEngine {
 	static get state => _state;
 
 	// Beats per minute
-	static double _bpm = 120.0;
-	static set bpm(x) { _bpm = x; _signal.add(x); }
+	static int _bpm = 120;
 	static get bpm => _bpm;
+	static set bpm(int x) { 
+
+		_bpm = x; 
+		if (_state != ControlState.READY) { synchronize();}
+		_signal.add(Signal());
+	}
 
 	// Generates a new blank track data structure
 	static Map<DRUM_SAMPLE, List<bool>> get _blanktape =>
@@ -47,8 +52,8 @@ abstract class AudioEngine {
 	static Map<DRUM_SAMPLE, List<bool>> _trackdata = _blanktape;
 	static Map<DRUM_SAMPLE, List<bool>> get trackdata => _trackdata;
 
-	// Timer tick duration: (bpm / sec_per_min * ms_per_sec / pattern_resolution)
-	static Duration get _tick => Duration(milliseconds: (bpm / 60 * 1000 / _resolution).round()); 
+	// Timer tick duration
+	static Duration get _tick => Duration(milliseconds: (60000 / bpm / 2).round());
 	static Stopwatch _watch = Stopwatch();
 	static Timer _timer;
 
@@ -86,7 +91,7 @@ abstract class AudioEngine {
 
 			case ControlState.PLAY:
 			case ControlState.RECORD:
-				if (state == ControlState.READY) {start(); }
+				if (state == ControlState.READY) { start(); }
 				break;
 
 			case ControlState.READY:
@@ -141,5 +146,14 @@ abstract class AudioEngine {
 
 		_watch.start();
 		_signal.add(Signal());
+	}
+
+	static void synchronize() { 
+	
+		_watch.stop();
+		_timer.cancel();
+		
+		_watch.start();
+		_timer = Timer.periodic(_tick, (t) => on<TickEvent>(TickEvent()));
 	}
 }

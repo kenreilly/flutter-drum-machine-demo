@@ -38,8 +38,8 @@ class _TrackState extends BaseState<Track> {
 					Expanded(
 						child: SizedBox.expand(
 							child: InkWell(
-								onTap: () => AudioEngine.on<EditEvent>(EditEvent(widget.sample, i)),
 								enableFeedback: false,
+								onTap: () => AudioEngine.on<EditEvent>(EditEvent(widget.sample, i)),
 								child: Container(
 									margin: EdgeInsets.symmetric(horizontal: 1),
 									color: getItemColor(i)
